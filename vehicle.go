@@ -25,13 +25,13 @@ type bike struct {
 
 // Values array for the feedback.json file
 type Values struct {
-	Models []Model
+	Models []Model `json:"values"`
 }
 
 // Model array for the feedback.json file
 type Model struct {
-	Name     string
-	Feedback []string
+	Name     string   `json:"model"`
+	Feedback []string `json:"feedback"`
 }
 
 type feedbackResult struct {
@@ -109,8 +109,7 @@ func generateRating() {
 				vehRating = 5.0
 				vehResult.feedbackTotal++
 				for _, word := range text {
-					s := strings.Trim(strings.ToLower(word), " ,.,!,?,\t,\n,\r")
-					switch s {
+					switch s := strings.Trim(strings.ToLower(word), " ,.,!,?,\t,\n,\r"); s {
 					case "pleasure", "impressed", "wonderful", "fantastic", "splendid":
 						vehRating += extraPositive
 					case "help", "helpful", "thanks", "thank you", "happy":
